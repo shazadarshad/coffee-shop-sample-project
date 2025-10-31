@@ -124,10 +124,10 @@ const Menu = () => {
   ];
 
   const filters = [
-    { id: 'all', label: 'All' },
-    { id: 'coffee', label: 'Coffee' },
-    { id: 'bakery', label: 'Bakery' },
-    { id: 'specials', label: 'Specials' },
+    { id: 'all', label: 'All', icon: '☕' },
+    { id: 'coffee', label: 'Coffee', icon: '☕' },
+    { id: 'bakery', label: 'Bakery', icon: '🥐' },
+    { id: 'specials', label: 'Specials', icon: '⭐' },
   ];
 
   const filteredItems =
@@ -136,56 +136,105 @@ const Menu = () => {
       : menuItems.filter((item) => item.category === activeFilter);
 
   return (
-    <div className="min-h-screen bg-cream">
-      <section className="py-12 md:py-16 bg-gradient-to-b from-brown/10 to-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-cream via-cream to-beige/20">
+      {/* Hero Header */}
+      <section className="section-padding bg-gradient-to-br from-brown/5 via-cream to-dark-green/5 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            className="absolute top-10 left-10 w-64 h-64 bg-brown/10 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 1,
+            }}
+            className="absolute bottom-10 right-10 w-80 h-80 bg-dark-green/10 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto container-padding relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-brown mb-4">
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.6, type: 'spring' }}
+              className="inline-block mb-6 text-6xl"
+            >
+              ☕
+            </motion.div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-brown mb-6">
               Our Menu
             </h1>
-            <p className="text-brown/70 text-lg max-w-2xl mx-auto">
-              Discover our carefully curated selection of coffee and bakery items
+            <p className="text-brown/70 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+              Discover our carefully curated selection of coffee and bakery items,
+              each crafted with passion and premium ingredients
             </p>
           </motion.div>
 
           {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-wrap justify-center gap-4 mb-16"
+          >
             {filters.map((filter) => (
               <motion.button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.08, y: -4 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                className={`px-8 py-4 rounded-xl font-bold text-base md:text-lg transition-all duration-300 shadow-lg ${
                   activeFilter === filter.id
-                    ? 'bg-brown text-cream shadow-lg'
-                    : 'bg-white text-brown hover:bg-beige shadow-md'
+                    ? 'bg-brown text-cream shadow-2xl shadow-brown/30 scale-105'
+                    : 'bg-white text-brown hover:bg-beige shadow-md hover:shadow-lg'
                 }`}
               >
+                <span className="mr-2 text-xl">{filter.icon}</span>
                 {filter.label}
               </motion.button>
             ))}
-          </div>
+          </motion.div>
+        </div>
+      </section>
 
-          {/* Menu Grid */}
+      {/* Menu Grid Section */}
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto container-padding">
           <motion.div
             layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
           >
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item, index) => (
                 <motion.div
                   key={item.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: -20 }}
+                  transition={{ duration: 0.4 }}
                 >
                   <ProductCard product={item} index={index} />
                 </motion.div>
@@ -195,11 +244,12 @@ const Menu = () => {
 
           {filteredItems.length === 0 && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-12"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="text-center py-20"
             >
-              <p className="text-brown/70 text-lg">
+              <div className="text-6xl mb-4">🔍</div>
+              <p className="text-brown/70 text-xl md:text-2xl font-medium">
                 No items found in this category.
               </p>
             </motion.div>
@@ -211,4 +261,3 @@ const Menu = () => {
 };
 
 export default Menu;
-

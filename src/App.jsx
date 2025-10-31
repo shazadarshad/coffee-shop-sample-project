@@ -6,11 +6,7 @@ import Menu from './pages/Menu';
 import About from './pages/About';
 import Contact from './pages/Contact';
 
-console.log('App.jsx loaded');
-
 function App() {
-  console.log('App component rendering...');
-  
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
@@ -22,7 +18,7 @@ function App() {
           Skip to main content
         </a>
         <Navbar />
-        <main id="main-content">
+        <main id="main-content" className="pt-16 md:pt-20">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
