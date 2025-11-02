@@ -89,6 +89,15 @@ src/
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 
-## Made by
+## 👤 Author
 
-Shazad Arshad
+**Shazad Arshad**
+
+- GitHub: [@shazadarshad](https://github.com/shazadarshad)
+- Instagram: [@shazad.ar](https://instagram.com/shazad.ar)
+- Brand Instagram: [@zenvadigitals](https://instagram.com/zenvadigitals)
+- Portfolio: [portfolio-sample-project-one.vercel.app](https://portfolio-sample-project-one.vercel.app)
+
+---
+
+**Note:** This is a sample/demo project showcasing modern web development techniques and design patterns. Feel free to use it as inspiration or a starting point for your own portfolio.
